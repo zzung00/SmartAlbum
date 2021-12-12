@@ -3,7 +3,7 @@ import './App.css';
 import React from 'react';
 import axios from 'axios';
 import Icon from '@mui/material/Icon';
-import { Container, Stack, Typography, Input, Button, FormControl, InputBase, IconButton, Divider, Skeleton } from '@mui/material'
+import { Container, Stack, Typography, Input, Button, FormControl, InputBase, IconButton, Divider, Skeleton, Link } from '@mui/material'
 import AddIcon from '@mui/icons-material/Add'
 
 class App extends React.Component {
@@ -12,7 +12,8 @@ class App extends React.Component {
     this.state = {
       file: "",
       imagePreview: "",
-      message: null
+      message: null,
+      url: ""
     };
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleChange = this.handleChange.bind(this);
@@ -27,7 +28,7 @@ class App extends React.Component {
       axios.post('api/v1/find/', formData)
         .then(res => {
           console.log(res);
-          this.setState({message: res.data})
+          this.setState({message: res.data, url: 'https://www.google.com/search?q=' + res.data})
           console.log(this.state.message)
         })
         .catch(err => {
@@ -83,11 +84,15 @@ class App extends React.Component {
           </form><br/>
           <Divider /><br/>
           {this.state.message !== null ? (
-            <Typography variant="h4"> 
-              {this.state.message} 입니다.
-            </Typography>
+            <div>
+              <Typography variant="h4"> 
+                {this.state.message} 입니다.
+              </Typography>
+              <Link href={this.state.url}>더보기</Link>
+            </div>
           ) : null}
         </Container>
+        
       </div>
     )
   }
