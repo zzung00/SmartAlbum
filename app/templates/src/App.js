@@ -2,6 +2,9 @@ import logo from './logo.svg';
 import './App.css';
 import React from 'react';
 import axios from 'axios';
+import Icon from '@mui/material/Icon';
+import { Container, Stack, Typography, Input, Button, FormControl, InputBase, IconButton } from '@mui/material'
+import AddIcon from '@mui/icons-material/Add'
 
 class App extends React.Component {
   constructor(props) {
@@ -47,15 +50,30 @@ class App extends React.Component {
     let $imagePreview = null;
     return(
       <div className="App">
-        <form onSubmit={this.handleSubmit}>
-          <label>
-            <h2>Upload your image!</h2>
-            <input type="file" onChange={this.handleChange}/>
-          </label>
-          <br/>
-          <button type="submit">Submit</button>
-        </form>
-        {!$imagePreview && <img src={this.state.imagePreview} width="320" height="240" />}
+        <Container fluid>
+          <form onSubmit={this.handleSubmit}>
+            <Stack justifyContent="center" alignItems="center" spacing={2}>
+              <Typography variant="h2">
+                Upload your image!
+              </Typography>
+              <Button variant="contained" component="label">
+                파일선택
+                <input style={{ display: 'none' }} type="file" onChange={this.handleChange} />
+              </Button>
+              {this.state.file == "" ? (
+                <Typography>
+                  선택된 파일이 없음
+                </Typography>
+              ) : (
+                <Typography>
+                  {this.state.file.name}
+                </Typography>
+              )}
+              {!$imagePreview && <img src={this.state.imagePreview} width="320" height="240" />}
+              <Button variant="contained" type="submit">업로드</Button>
+            </Stack>
+          </form>
+        </Container>
       </div>
  
     )
