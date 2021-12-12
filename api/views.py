@@ -14,6 +14,7 @@ from django.conf import settings
 
 class_names = ['데이지', '민들레', '장미', '해바라기', '튤립']
 
+
 # Create your views here.
 
 @api_view(['POST'])
